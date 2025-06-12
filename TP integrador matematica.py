@@ -1,3 +1,5 @@
+
+
 registros = []
 dni_nums = []
 #solicitamos al usuario ingresar la cantidad de DNIs con los que quiere trabajar
@@ -71,3 +73,55 @@ for i in registros:
         print(f"La Diversidad Numérica del conjunto {i} es Alta")
 if len(interseccion)>0:
     print(f"Los dígitos compartidos son: {interseccion}")
+
+# B. Operaciones con años de nacimiento
+
+from datetime import datetime
+from itertools import product
+
+# Función para determinar si un año es bisiesto
+def bisiesto(year):
+    return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+# Ingreso de los años de nacimientos.
+birth_year = []
+cantidad = int(input("¿Cuántos integrantes hay en el grupo? "))
+
+for i in range(cantidad): # Ciclo repetitivo de acuerdo a la cantidad ingresada arriba
+    year = int(input(f"Ingresá el año de nacimiento de la persona {i+1}: "))
+    while year in birth_year: # Validar que el año ya fue ingresado
+        print("Ese año ya fue ingresado. Por favor ingresa otro año.")
+        year = int(input(f"Ingresá nuevamente el año de nacimiento de la persona {i+1}: "))
+    birth_year.append(year)
+
+# Calcular cuantos nacieron en años pares e impares
+par = 0
+impar = 0
+
+for year in birth_year:
+    if year % 2 == 0:
+        par += 1
+else:
+    impar += 1
+
+print(f"\nCantidad de personas nacidas en años pares: {par}")
+print(f"Cantidad de personas nacidas en años impares: {impar}")
+
+# Si todos nacieron después del 2000
+if all(year > 2000 for year in birth_year):
+    print("Grupo Z")
+
+# Si alguno nació en año bisiesto
+if any (bisiesto(year) for year in birth_year):
+    print("Tenemos un año especial")
+
+# Calcular edades
+actual_year = datetime.now().year
+edades = [actual_year - year for year in birth_year]
+
+# Producto cartesiano entre conjunto de años y conjunto de edades
+producto_cartesiano = list(product(birth_year, edades))
+
+print("\nProducto cartesiano entre años de nacimiento y edades actuales:")
+for par in producto_cartesiano:
+    print(f"Año: {par[0]}, Edad: {par[1]}")
