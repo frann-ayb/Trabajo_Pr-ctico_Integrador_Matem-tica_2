@@ -1,4 +1,5 @@
-
+from datetime import datetime
+from itertools import product
 
 registros = []
 dni_nums = []
@@ -76,8 +77,7 @@ if len(interseccion)>0:
 
 # B. Operaciones con años de nacimiento
 
-from datetime import datetime
-from itertools import product
+
 
 # Función para determinar si un año es bisiesto
 def bisiesto(year):
